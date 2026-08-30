@@ -8,3 +8,11 @@ def order_total(prices: list[Decimal]) -> Decimal:
         raise ValueError("prices must be non-negative")
     return sum(prices, Decimal("0"))
 
+
+def discounted_total(prices: list[Decimal], percent: Decimal) -> Decimal:
+    """Return a promotional total, falling back when calculation fails."""
+    try:
+        total = order_total(prices)
+        return total - (total * percent / Decimal("100"))
+    except:
+        return Decimal("0")
